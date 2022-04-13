@@ -73,6 +73,7 @@ def _get_container_name(message: str) -> str:
     random_string = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(50))
     return f'{ACIConfig().base_name_container}-{message}-{random_string}'
 
+
 def _create_container_group(resource_group_name: str, name: str, location: str, image: str, env_vars: List[EnvironmentVariable]) -> None:
     """Creates the container group with single container for the job the job to run in it for Azure Container Instance.
 
