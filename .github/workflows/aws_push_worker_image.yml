@@ -34,3 +34,4 @@ jobs:
         context: worker.Dockerfile
         push: true
         tags: ${{ secrets.ACR_SERVER }}/${{ env.IMAGE_NAME }}:latest
+        dockerfile: ./worker.Dockerfile
