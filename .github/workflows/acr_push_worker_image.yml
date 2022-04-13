@@ -35,4 +35,3 @@ jobs:
         tags: ${{ secrets.ACR_SERVER }}/${{ env.IMAGE_NAME }}:latest
         context: .
         file: worker.Dockerfile
-

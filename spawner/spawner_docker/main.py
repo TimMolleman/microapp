@@ -22,6 +22,7 @@ def main(msg: func.ServiceBusMessage) -> None:
     Args:
         msg (func.ServiceBusMessage): Servicebus message sent from the app-queue
     """
+    # Test test
     # Decode message
     message = msg.get_body().decode('utf-8')
     
@@ -38,6 +39,7 @@ def main(msg: func.ServiceBusMessage) -> None:
 
     logging.info('Python ServiceBus queue trigger processed message: %s',
                  message)
+
 
 def _create_env_vars(message: str, container_name: str) -> List[EnvironmentVariable]:
     """Creates a number of environment variables needed for running the job.
@@ -58,6 +60,7 @@ def _create_env_vars(message: str, container_name: str) -> List[EnvironmentVaria
     cosmos_app_db_var = EnvironmentVariable(name='COSMOS_APP_DB', secure_value=CosmosSettings().cosmos_app_db.get_secret_value())
     
     return [msg_var, container_name_var, cosmos_endpoint_var, cosmos_db_key_var, cosmos_app_db_var]
+
 
 def _get_container_name(message: str) -> str:
     """Gets container name. It is randomly generated from the queue name + a random string.
@@ -114,6 +117,3 @@ def _create_container_group(resource_group_name: str, name: str, location: str, 
                             restart_policy=restart_policy)
 
     client.container_groups.begin_create_or_update(resource_group_name, name, cgroup)
-
-if __name__ == '__main__':
-    main()
