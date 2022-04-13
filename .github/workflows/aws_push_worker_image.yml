@@ -1,0 +1,54 @@
+#on:
+#  push:
+#    branches: [ master ]
+#    paths: [ src/cosmos_db/**, src/helpers/**, src/service_bus/**, src/worker/** ]
+#  pull_request:
+#    branches: [ master ]
+#    paths: [ src/cosmos_db/**, src/helpers/**, src/service_bus/**, src/worker/** ]
+#
+#name: Worker docker image push for microapp
+#
+#jobs:
+#  deploy:
+#    name: Deploy
+#    runs-on: ubuntu-latest
+#    env:
+#      ECR_REPOSITORY: funda-link-cleaner
+#
+#    steps:
+#    - name: Checkout
+#      uses: actions/checkout@v2
+#
+#    - name: Configure AWS credentials
+#      uses: aws-actions/configure-aws-credentials@v1
+#      with:
+#        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        aws-region: eu-west-2
+#
+#    - name: Login to Amazon ECR
+#      id: login-ecr
+#      uses: aws-actions/amazon-ecr-login@v1
+#
+#    - name: Build, tag, and push the image to Amazon ECR
+#      id: build-and-push-image
+#      env:
+#        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#        IMAGE_TAG: latest
+#      run: |
+#        # Build a docker container and push it to ECR
+#        docker build -t $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG -f ./link_cleaner/Dockerfile .
+#        echo "Pushing image to ECR..."
+#        docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
+#        echo "::set-output name=image::$ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG"
+#    - name: Update AWS lambda function code
+#      id: update-lambda-function-code
+#      env:
+#        IMAGE_URI: ${{ steps.build-and-push-image.outputs.image }}
+#      run: |
+#        aws lambda update-function-code --function-name arn:aws:lambda:eu-west-2:766485280553:function:${{ env.ECR_REPOSITORY }} --image-uri $IMAGE_URI
+#    - name: Delete all untagged images as to only have one image in ECR (for billing purposes)
+#      id: delete-untagged-images
+#      run: |
+#        IMAGES_TO_DELETE=$( aws ecr list-images --region eu-west-2 --repository-name ${{ env.ECR_REPOSITORY }} --filter "tagStatus=UNTAGGED" --query 'imageIds[*]' --output json )
+#        aws ecr batch-delete-image --region eu-west-2 --repository-name ${{ env.ECR_REPOSITORY }} --image-ids "$IMAGES_TO_DELETE" || true

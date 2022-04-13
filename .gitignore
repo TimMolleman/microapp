@@ -1,0 +1,19 @@
+# Venvs
+**/venv
+**/.venv
+
+# Pycharm
+**/.idea
+**/__pycache__
+
+# Any environment variable
+**/.env
+
+# Azure function specific hidden files
+spawner/local.settings.json
+
+# VS-code
+**/.vscode
+
+# Macbook store
+**/.DS_Store

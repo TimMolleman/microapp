@@ -1,0 +1,5 @@
+azure-servicebus==7.6.0
+azure-cosmos==4.2.0
+fastapi==0.75.1
+uvicorn==0.17.6
+mangum==0.14.1
