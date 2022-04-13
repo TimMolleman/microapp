@@ -9,7 +9,7 @@ class ServiceBus:
         self.client = ServiceBusClient.from_connection_string(conn_str=conn_str, logging_enable=True)
 
     def send_single_message(self, message: str) -> None:
-        """Send a single message to the queue. It should be a string.
+        """Send a single message to the queue. It should be a string
 
         :param (str) message: Message to send to queue, usually a name
         """

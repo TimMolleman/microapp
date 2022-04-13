@@ -24,8 +24,6 @@ def main(msg: func.ServiceBusMessage) -> None:
     """
     # Decode message
     message = msg.get_body().decode('utf-8')
-    print(dir(azure_context.credentials))
-    exit()
     
     # Create container name for run and obtain environment variables for the worker docker image
     container_name = _get_container_name(message)
