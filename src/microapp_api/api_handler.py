@@ -21,7 +21,7 @@ async def post_number(number_variables: NumberVariables) -> NumberVariables:
     (sum) job as a docker container in ACI from Azure Functions trigger.
 
     :param (NumberVariables) number_variables: Name and number to add to cosmos DB
-    :return: The number variables that were also passed intothe function
+    :return: The number variables that were also passed into the function
     """
     try:
         # First insert the new item into the Cosmos database
