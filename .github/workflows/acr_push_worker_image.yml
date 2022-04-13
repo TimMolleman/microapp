@@ -35,3 +35,10 @@ jobs:
         tags: ${{ secrets.ACR_SERVER }}/${{ env.IMAGE_NAME }}:latest
         context: .
         file: worker.Dockerfile
+
+    - name: Clean up manifests of the latest image
+      uses: Amadevus/pwsh-script@v2
+      id: bad-script
+      with:
+        script: return [ordered]@{ x= 'a1'; y = 'b2' }
+      run: echo "${{ steps.bad-script.outputs.error }}"
