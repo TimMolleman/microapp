@@ -2,11 +2,11 @@ on:
   push:
     branches: [ master ]
     paths: [ src/cosmos_db/**, src/helpers/**, src/service_bus/**, src/worker/**,
-             .github/workflows/aws_push_worker_image.yml ]
+             .github/workflows/acr_push_worker_image.yml ]
   pull_request:
     branches: [ master ]
     paths: [ src/cosmos_db/**, src/helpers/**, src/service_bus/**, src/worker/**,
-             .github/workflows/aws_push_worker_image.yml ]
+             .github/workflows/acr_push_worker_image.yml ]
 
 name: Worker docker image push for microapp
 
@@ -31,7 +31,6 @@ jobs:
     - name: Build and Push
       uses: docker/build-push-action@v2
       with:
-        context: .
         push: true
         tags: ${{ secrets.ACR_SERVER }}/${{ env.IMAGE_NAME }}:latest
         dockerfile: worker.Dockerfile
