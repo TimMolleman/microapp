@@ -22,7 +22,6 @@ def main(msg: func.ServiceBusMessage) -> None:
     Args:
         msg (func.ServiceBusMessage): Servicebus message sent from the app-queue
     """
-    # Test test
     # Decode message
     message = msg.get_body().decode('utf-8')
     
