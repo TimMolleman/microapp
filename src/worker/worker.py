@@ -4,6 +4,7 @@ from helpers import transform
 
 
 def aggregate_data():
+    """Aggregates data for user and upsert to cosmos db."""
     name = os.environ['MESSAGE']
 
     # Retrieve the number items
