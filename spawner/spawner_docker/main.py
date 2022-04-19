@@ -3,7 +3,6 @@ import random
 import string
 from typing import List
 
-import azure.functions as func
 from azure.mgmt.containerinstance import ContainerInstanceManagementClient
 from azure.mgmt.containerinstance.models import (ContainerGroup, Container, ContainerPort, Port, IpAddress, EnvironmentVariable,
                                                  ResourceRequirements, ResourceRequests, ContainerGroupNetworkProtocol, OperatingSystemTypes,
@@ -14,7 +13,7 @@ from spawner_docker.config import azure_context, ACIConfig, ACRSettings, CosmosS
 client = ContainerInstanceManagementClient(azure_context.credentials, azure_context.subscription_id)
 
 
-def main(msg: func.ServiceBusMessage):
+def main(msg):
     """Triggers from a service bus message. It creates an Azure Container Instance ContainerGroup and Container that runs
     the worker docker image. This docker image contains a job that takes the message - which is supposed to be a name - and
     adds all the numbers in a Azure Cosmos database together for this person.
