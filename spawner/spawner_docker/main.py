@@ -2,6 +2,7 @@ import logging
 import random
 import string
 from typing import List
+import sys
 
 from azure.mgmt.containerinstance import ContainerInstanceManagementClient
 from azure.mgmt.containerinstance.models import (ContainerGroup, Container, ContainerPort, Port, IpAddress, EnvironmentVariable,
@@ -21,6 +22,7 @@ def main(msg):
     Args:
         msg (func.ServiceBusMessage): Servicebus message sent from the app-queue
     """
+    logging.info(sys.version_info[0], sys.version_info[1])
     # Decode message
     message = msg.get_body().decode('utf-8')
     
@@ -34,6 +36,9 @@ def main(msg):
                             ACIConfig().location, 
                             ACIConfig().image_name, 
                             env_vars)
+
+    # logging.info(f'Python ServiceBus queue trigger processed message: {message}')
+
 
 def _create_env_vars(message: str, container_name: str) -> List[EnvironmentVariable]:
     """Creates a number of environment variables needed for running the job.
