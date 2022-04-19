@@ -14,7 +14,7 @@ from spawner_docker.config import azure_context, ACIConfig, ACRSettings, CosmosS
 client = ContainerInstanceManagementClient(azure_context.credentials, azure_context.subscription_id)
 
 
-def main(msg):
+def main(msg) -> None:
     """Triggers from a service bus message. It creates an Azure Container Instance ContainerGroup and Container that runs
     the worker docker image. This docker image contains a job that takes the message - which is supposed to be a name - and
     adds all the numbers in a Azure Cosmos database together for this person.
