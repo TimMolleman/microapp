@@ -116,6 +116,3 @@ def _create_container_group(resource_group_name: str, name: str, location: str, 
                             restart_policy=restart_policy)
 
     client.container_groups.begin_create_or_update(resource_group_name, name, cgroup)
-
-if __name__ == '__main__':
-    main()
