@@ -40,7 +40,7 @@ def main(msg):
     # logging.info(f'Python ServiceBus queue trigger processed message: {message}')
 
 
-def _create_env_vars(message: str, container_name: str) -> List[EnvironmentVariable]:
+def _create_env_vars(message, container_name):
     """Creates a number of environment variables needed for running the job.
 
     Args:
@@ -61,7 +61,7 @@ def _create_env_vars(message: str, container_name: str) -> List[EnvironmentVaria
     return [msg_var, container_name_var, cosmos_endpoint_var, cosmos_db_key_var, cosmos_app_db_var]
 
 
-def _get_container_name(message: str) -> str:
+def _get_container_name(message):
     """Gets container name. It is randomly generated from the queue name + a random string.
 
     Args:
@@ -71,10 +71,10 @@ def _get_container_name(message: str) -> str:
         str: Randomly generated container name
     """
     random_string = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(50))
-    return f'{ACIConfig().base_name_container}-{message}-{random_string}'
+    return 'random_string'
 
 
-def _create_container_group(resource_group_name: str, name: str, location: str, image: str, env_vars: List[EnvironmentVariable]) -> None:
+def _create_container_group(resource_group_name, name, location, image, env_vars):
     """Creates the container group with single container for the job the job to run in it for Azure Container Instance.
 
     Args:
