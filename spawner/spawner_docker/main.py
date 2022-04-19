@@ -1,6 +1,7 @@
 import logging
 import sys
 
+logging.Logger.root.level = 10
 
 
 def main(msg):
@@ -11,6 +12,7 @@ def main(msg):
     Args:
         msg (func.ServiceBusMessage): Servicebus message sent from the app-queue
     """
+    logging.debug("Debug message here")
     logging.info(sys.version_info[0], sys.version_info[1])
     
     logging.info(help('modules'))
