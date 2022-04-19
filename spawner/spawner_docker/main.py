@@ -1,7 +1,6 @@
 import logging
 import random
 import string
-from typing import List
 import sys
 
 from azure.mgmt.containerinstance import ContainerInstanceManagementClient
