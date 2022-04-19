@@ -35,9 +35,6 @@ def main(msg):
                             ACIConfig().image_name, 
                             env_vars)
 
-    logging.info(f'Python ServiceBus queue trigger processed message: {message}')
-
-
 def _create_env_vars(message: str, container_name: str) -> List[EnvironmentVariable]:
     """Creates a number of environment variables needed for running the job.
 
