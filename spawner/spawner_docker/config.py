@@ -6,10 +6,6 @@ from pydantic import BaseSettings, Field, SecretStr
 # Azure context creation
 class AzureContext:
     def __init__(self):
-        # self.credentials = DefaultAzureCredential()
-        # self.credentials = ClientSecretCredential(tenant_id='f69fca54-a603-4f55-b21d-f41a64cc6591',
-        #                                           client_id='e1204621-4d03-4e1e-ba40-087399b6546f',
-        #                                           client_secret='AjF7Q~APPiLV_XvUjik3MZpI-sNkgFykcDwmw')
         self.credentials = DefaultAzureCredential()
         self.subscription_id = os.getenv('AZURE_SUBSCRIPTION_ID')
 
