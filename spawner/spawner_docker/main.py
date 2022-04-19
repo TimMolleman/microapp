@@ -14,7 +14,7 @@ from spawner_docker.config import azure_context, ACIConfig, ACRSettings, CosmosS
 client = ContainerInstanceManagementClient(azure_context.credentials, azure_context.subscription_id)
 
 
-def main(msg: func.ServiceBusMessage) -> None:
+def main(msg: func.ServiceBusMessage):
     """Triggers from a service bus message. It creates an Azure Container Instance ContainerGroup and Container that runs
     the worker docker image. This docker image contains a job that takes the message - which is supposed to be a name - and
     adds all the numbers in a Azure Cosmos database together for this person.
@@ -36,8 +36,7 @@ def main(msg: func.ServiceBusMessage) -> None:
                             ACIConfig().image_name, 
                             env_vars)
 
-    logging.info('Python ServiceBus queue trigger processed message: %s',
-                 message)
+    logging.info(f'Python ServiceBus queue trigger processed message: {message}')
 
 
 def _create_env_vars(message: str, container_name: str) -> List[EnvironmentVariable]:
@@ -117,3 +116,6 @@ def _create_container_group(resource_group_name: str, name: str, location: str, 
                             restart_policy=restart_policy)
 
     client.container_groups.begin_create_or_update(resource_group_name, name, cgroup)
+
+if __name__ == '__main__':
+    main()
