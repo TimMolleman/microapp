@@ -1,0 +1,30 @@
+name: Deploy bicep
+
+trigger:
+- main
+
+pool:
+  name: local_pool
+  demands:
+    - agent.os -equals Darwin
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - task: AzureCLI@2  
+      displayName: 'Build bicep artifact' 
+      inputs: 
+        azureSubscription: $(azureSubscription) 
+        scriptType: 'pscore'  
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az bicep build --file main.bicep'
+    
+    - task: PublishBuildArtifacts@1 
+      displayName: 'Publish artifact in pipeline' 
+      inputs: 
+        PathtoPublish: '$(Build.SourcesDirectory)/main.json'  
+        ArtifactName: 'finishedBicepTemplate'  
+        publishLocation: 'Container'
+        
