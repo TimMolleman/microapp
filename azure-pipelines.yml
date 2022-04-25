@@ -9,7 +9,7 @@ pool:
     - agent.os -equals Darwin
 
 variables:
-  azureSubscription: 'azure_contributer_connection'
+  azureSubscription: 'build_connection'
 
 
 stages:
