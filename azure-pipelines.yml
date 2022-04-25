@@ -9,7 +9,7 @@ pool:
     - agent.os -equals Darwin
 
 variables:
-  azureSubscription: 'Azure subscription'
+  azureSubscription: 'Azure subscription 1'
 
 
 stages:
