@@ -8,7 +8,7 @@ variables:
   # Container registry service connection established during pipeline creation
   imageRepository: 'worker'
   containerRegistry: 'microcontainerapp$(DEPLOY_ENVIRONMENT).azurecr.io'
-  dockerfilePath: '**/spawner.Dockerfile'
+  dockerfilePath: '**/worker.Dockerfile'
   tag: 'latest'
 
 pool:
