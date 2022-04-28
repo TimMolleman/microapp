@@ -31,4 +31,5 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(DOCKER_REGISTRY_SERVICE_CONNECTION)
         tags: |
+          $(build.buildid)
           $(tag)
