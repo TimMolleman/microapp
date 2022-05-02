@@ -6,7 +6,7 @@ variables:
   dockerRegistryServiceConnection: '92dde932-fe12-4cba-ba4a-ec6b7577dbc4'
   imageRepository: 'worker'
   containerRegistry: 'microcontainerapptest.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/$(DEPLOY_ENVIRONMENT)/Dockerfile'
   tag: '$(Build.BuildId)'
 
   # Agent VM image name
