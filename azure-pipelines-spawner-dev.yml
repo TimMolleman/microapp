@@ -2,35 +2,31 @@ trigger:
 - master
 
 variables:
-  IMAGE_REPOSITORY: 'worker'
-  CONTAINER_REGISTRY: 'microcontainerapp$(DEPLOY_ENVIRONMENT).azurecr.io'
-  TAG: 'latest'
-  DOCKER_FILEPATH: '$(Build.SourcesDirectory)/Dockerfile'
-  DOCKER_REGISTRY_SERVICE_CONNECTION: 'microapp_test_acr'
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: '92dde932-fe12-4cba-ba4a-ec6b7577dbc4'
+  imageRepository: 'worker'
+  containerRegistry: 'microcontainerapptest.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
 
-pool:
-  name: local_pool
-  demands:
-    - agent.os -equals Darwin
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
 
 stages:
 - stage: Build
-  displayName: Build and push spawner container
+  displayName: Build and push stage
   jobs:
-    - deployment:
-      displayName: 'Build docker image'
-      environment: $(DEPLOY_ENVIRONMENT)
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-              - task: Docker@2
-                displayName: Build and push an image to container registry
-                inputs:
-                  command: buildAndPush
-                  repository: $(IMAGE_REPOSITORY)
-                  dockerfile: $(DOCKER_FILEPATH)
-                  CONTAINER_REGISTRY: '92dde932-fe12-4cba-ba4a-ec6b7577dbc4'
-                  tags: |
-                    $(build.buildid)
-                    $(TAG)
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
