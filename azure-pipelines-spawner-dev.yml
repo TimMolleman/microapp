@@ -6,6 +6,7 @@ variables:
   CONTAINER_REGISTRY: 'microcontainerapp$(DEPLOY_ENVIRONMENT).azurecr.io'
   DOCKER_FILEPATH: '**/worker.Dockerfile'
   TAG: 'latest'
+  DOCKER_REGISTRY_SERVICE_CONNECTION: 'microapp_test_acr'
 
 pool:
   vmImage: ubuntu-latest
