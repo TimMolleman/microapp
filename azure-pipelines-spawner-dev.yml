@@ -1,19 +1,19 @@
 trigger:
-- none
+- master
 
 variables:
   IMAGE_REPOSITORY: 'worker'
   CONTAINER_REGISTRY: 'microcontainerapp$(DEPLOY_ENVIRONMENT).azurecr.io'
   DOCKER_FILEPATH: '**/worker.Dockerfile'
   TAG: 'latest'
-
+  FUNCTIONAPPNAME: 'spawner$(DEPLOY_ENVIRONMENT)'
+  WORKING_DIRECTORY: '$(System.DefaultWorkingDirectory)/spawner'
 
 pool:
   vmImage: ubuntu-latest
 
 stages:
-- template: pipeline-templates/zip-and-deploy-function.yml
 - stage: Build
-  displayName: Build and push spawner image
+  displayName: Build and push spawner container
   jobs:
     - template: pipeline-templates/build-and-push-image.yml

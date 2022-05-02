@@ -2,17 +2,8 @@ trigger:
 - master
 
 variables:
-  # Azure Resource Manager connection created during pipeline creation
-  azureSubscription: 'e0f5751b-983a-4d0c-a766-3ecda44e6b08'
-
-  # Function app name
-  functionAppName: 'spawnertest'
-
-  # Working Directory
-  workingDirectory: '$(System.DefaultWorkingDirectory)/spawner'
-
-  # Deploy environment
-  DEPLOY_ENVIRONMENT: 'test'
+  FUNCTIONAPPNAME: 'spawner$(DEPLOY_ENVIRONMENT)'
+  WORKING_DIRECTORY: '$(System.DefaultWorkingDirectory)/spawner'
 
 pool:
   vmImage: ubuntu-latest

@@ -1,10 +1,11 @@
+# Template for zipping and deploying Python 3.8 spawner function to Azure
 stages:
 - stage: Build
-  displayName: Build stage
+  displayName: Build function
 
   jobs:
   - job: Build
-    displayName: Build
+    displayName: Build function
 
     steps:
     - bash: |
@@ -12,23 +13,23 @@ stages:
         then
             dotnet build extensions.csproj --runtime ubuntu.16.04-x64 --output ./bin
         fi
-      workingDirectory: $(workingDirectory)
+      workingDirectory: $(WORKING_DIRECTORY)
       displayName: 'Build extensions'
 
     - task: UsePythonVersion@0
       displayName: 'Use Python 3.8'
       inputs:
-        versionSpec: 3.8 # Functions V2 supports Python 3.6 as of today
+        versionSpec: 3.8
 
     - bash: |
         pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt
-      workingDirectory: $(workingDirectory)
+      workingDirectory: $(WORKING_DIRECTORY)
       displayName: 'Install application dependencies'
 
     - task: ArchiveFiles@2
       displayName: 'Archive files'
       inputs:
-        rootFolderOrFile: '$(workingDirectory)'
+        rootFolderOrFile: '$(WORKING_DIRECTORY)'
         includeRootFolder: false
         archiveType: zip
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
@@ -38,13 +39,13 @@ stages:
       artifact: drop
 
 - stage: Deploy
-  displayName: Deploy stage
+  displayName: Deploy function stage
   dependsOn: Build
   condition: succeeded()
 
   jobs:
   - deployment: Deploy
-    displayName: Deploy
+    displayName: Deploy function
     environment: $(DEPLOY_ENVIRONMENT)
 
     strategy:
@@ -55,7 +56,7 @@ stages:
           - task: AzureFunctionApp@1
             displayName: 'Azure functions app deploy'
             inputs:
-              azureSubscription: '$(azureSubscription)'
+              azureSubscription: '$(AZURE_SUBSCRIPTION)'
               appType: functionAppLinux
-              appName: $(functionAppName)
+              appName: $(FUNCTIONAPPNAME)
               package: '$(Pipeline.Workspace)/drop/$(Build.BuildId).zip'

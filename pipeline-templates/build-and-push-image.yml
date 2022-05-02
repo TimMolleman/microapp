@@ -1,3 +1,4 @@
+# Template for deployment of spawner image to ACR
 jobs:
 - deployment:
   displayName: 'Build docker image'
@@ -10,9 +11,9 @@ jobs:
             displayName: Build and push an image to container registry
             inputs:
               command: buildAndPush
-              repository: $(imageRepository)
-              dockerfile: $(dockerfilePath)
-              containerRegistry: $(DOCKER_REGISTRY_SERVICE_CONNECTION)
+              repository: $(IMAGE_REPOSITORY)
+              dockerfile: $(DOCKER_FILEPATH)
+              CONTAINER_REGISTRY: $(DOCKER_REGISTRY_SERVICE_CONNECTION)
               tags: |
                 $(build.buildid)
-                $(tag)
+                $(TAG)
