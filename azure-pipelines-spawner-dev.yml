@@ -4,7 +4,7 @@ trigger:
 variables:
   IMAGE_REPOSITORY: 'worker'
   CONTAINER_REGISTRY: 'microcontainerapp$(DEPLOY_ENVIRONMENT).azurecr.io'
-  DOCKER_FILEPATH: '../worker.Dockerfile'
+  DOCKER_FILEPATH: 'worker.Dockerfile'
   TAG: 'latest'
   DOCKER_REGISTRY_SERVICE_CONNECTION: 'microapp_test_acr'
 
@@ -15,4 +15,20 @@ stages:
 - stage: Build
   displayName: Build and push spawner container
   jobs:
-    - template: pipeline-templates/build-and-push-image.yml
+    - deployment:
+      displayName: 'Build docker image'
+      environment: $(DEPLOY_ENVIRONMENT)
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: Docker@2
+                displayName: Build and push an image to container registry
+                inputs:
+                  command: buildAndPush
+                  repository: $(IMAGE_REPOSITORY)
+                  dockerfile: $(DOCKER_FILEPATH)
+                  CONTAINER_REGISTRY: $(DOCKER_REGISTRY_SERVICE_CONNECTION)
+                  tags: |
+                    $(build.buildid)
+                    $(TAG)
