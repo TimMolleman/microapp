@@ -8,7 +8,9 @@ variables:
   DOCKER_REGISTRY_SERVICE_CONNECTION: 'microapp_test_acr'
 
 pool:
-  vmImage: ubuntu-latest
+  name: local_pool
+  demands:
+    - agent.os -equals Darwin
 
 stages:
 - stage: Build
@@ -27,7 +29,7 @@ stages:
                   command: buildAndPush
                   repository: $(IMAGE_REPOSITORY)
                   buildContext: '$(Build.Repository.LocalPath)'
-                  dockerfile: 'worker.Dockerfile'
+                  dockerfile: '**/worker.Dockerfile'
                   CONTAINER_REGISTRY: $(DOCKER_REGISTRY_SERVICE_CONNECTION)
                   tags: |
                     $(build.buildid)
