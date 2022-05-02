@@ -18,6 +18,7 @@ stages:
   jobs:
   - deployment:
     displayName: Build docker image
+    environment: $(DEPLOY_ENVIRONMENT)
     strategy:
       runOnce:
         deploy:
