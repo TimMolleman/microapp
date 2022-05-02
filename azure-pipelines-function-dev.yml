@@ -1,8 +1,3 @@
-# Python Function App to Linux on Azure
-# Build a Python function app and deploy it to Azure as a Linux function app.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
-
 trigger:
 - master
 
@@ -13,11 +8,11 @@ variables:
   # Function app name
   functionAppName: 'spawnertest'
 
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-
   # Working Directory
   workingDirectory: '$(System.DefaultWorkingDirectory)/spawner'
+
+pool:
+  vmImage: ubuntu-latest
 
 stages:
 - stage: Build
@@ -26,8 +21,6 @@ stages:
   jobs:
   - job: Build
     displayName: Build
-    pool:
-      vmImage: $(vmImageName)
 
     steps:
     - bash: |
@@ -39,9 +32,9 @@ stages:
       displayName: 'Build extensions'
 
     - task: UsePythonVersion@0
-      displayName: 'Use Python 3.6'
+      displayName: 'Use Python 3.8'
       inputs:
-        versionSpec: 3.6 # Functions V2 supports Python 3.6 as of today
+        versionSpec: 3.8 # Functions V2 supports Python 3.6 as of today
 
     - bash: |
         pip install --target="./.python_packages/lib/site-packages" -r ./requirements.txt
@@ -68,9 +61,7 @@ stages:
   jobs:
   - deployment: Deploy
     displayName: Deploy
-    environment: 'development'
-    pool:
-      vmImage: $(vmImageName)
+    environment: 'test'
 
     strategy:
       runOnce:
