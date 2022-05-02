@@ -30,7 +30,7 @@ stages:
                   command: buildAndPush
                   repository: $(IMAGE_REPOSITORY)
                   dockerfile: $(DOCKER_FILEPATH)
-                  CONTAINER_REGISTRY: $(DOCKER_REGISTRY_SERVICE_CONNECTION)
+                  CONTAINER_REGISTRY: '92dde932-fe12-4cba-ba4a-ec6b7577dbc4'
                   tags: |
                     $(build.buildid)
                     $(TAG)
