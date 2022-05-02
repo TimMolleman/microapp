@@ -28,8 +28,6 @@ stages:
                 inputs:
                   command: buildAndPush
                   repository: $(IMAGE_REPOSITORY)
-                  buildContext: '$(Build.Repository.LocalPath)'
-                  dockerfile: 'worker.Dockerfile'
                   CONTAINER_REGISTRY: $(DOCKER_REGISTRY_SERVICE_CONNECTION)
                   tags: |
                     $(build.buildid)
