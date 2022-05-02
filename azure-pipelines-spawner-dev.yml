@@ -6,8 +6,6 @@ variables:
   CONTAINER_REGISTRY: 'microcontainerapp$(DEPLOY_ENVIRONMENT).azurecr.io'
   DOCKER_FILEPATH: '**/worker.Dockerfile'
   TAG: 'latest'
-  FUNCTIONAPPNAME: 'spawner$(DEPLOY_ENVIRONMENT)'
-  WORKING_DIRECTORY: '$(System.DefaultWorkingDirectory)/spawner'
 
 pool:
   vmImage: ubuntu-latest
