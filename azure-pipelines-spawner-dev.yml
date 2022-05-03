@@ -23,6 +23,7 @@ stages:
       runOnce:
         deploy:
           steps:
+          - checkout: self
           - script: ls $(Build.SourcesDirectory)
           - task: Docker@2
             displayName: Build and push an image to container registry
