@@ -1,5 +1,5 @@
 trigger:
-- none
+- master
 
 variables:
   FUNCTIONAPPNAME: 'spawner$(DEPLOY_ENVIRONMENT)'
