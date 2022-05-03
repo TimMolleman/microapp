@@ -3,7 +3,7 @@ trigger:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'some_id'
+  dockerRegistryServiceConnection: 'microapp_test_acr'
   imageRepository: 'worker'
   containerRegistry: 'microcontainerapptest.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
