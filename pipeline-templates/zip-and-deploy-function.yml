@@ -51,8 +51,8 @@ stages:
     strategy:
       runOnce:
         deploy:
-
           steps:
+          - checkout: self
           - task: AzureFunctionApp@1
             displayName: 'Azure functions app deploy'
             inputs:

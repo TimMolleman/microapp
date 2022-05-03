@@ -14,7 +14,7 @@ jobs:
               command: buildAndPush
               repository: $(IMAGE_REPOSITORY)
               dockerfile: $(DOCKER_FILEPATH)
-              CONTAINER_REGISTRY: $(DOCKER_REGISTRY_SERVICE_CONNECTION)
+              containerRegistry: $(DOCKER_REGISTRY_SERVICE_CONNECTION)
               tags: |
                 $(build.buildid)
                 $(TAG)
