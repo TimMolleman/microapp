@@ -6,6 +6,7 @@ variables:
   CONTAINER_REGISTRY: 'microcontainerapp$(DEPLOY_ENVIRONMENT).azurecr.io'
   DOCKER_FILEPATH: '$(Build.SourcesDirectory)/Dockerfile'
   TAG: 'latest'
+  DOCKER_REGISTRY_SERVICE_CONNECTION: 'microapp$(DEPLOY_ENVIRONMENT)acr'
   FUNCTIONAPPNAME: 'spawner$(DEPLOY_ENVIRONMENT)'
   WORKING_DIRECTORY: '$(System.DefaultWorkingDirectory)/spawner'
 

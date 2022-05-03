@@ -1,7 +1,7 @@
 # Template for deployment of spawner image to ACR
 jobs:
 - deployment:
-  displayName: 'Build docker image'
+  displayName: 'Build docker spawner image'
   environment: $(DEPLOY_ENVIRONMENT)
   strategy:
     runOnce:
