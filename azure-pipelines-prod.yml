@@ -3,11 +3,11 @@ trigger:
 
 variables:
   IMAGE_REPOSITORY: 'worker'
-  CONTAINER_REGISTRY: 'microcontainerapp$(DEPLOY_ENVIRONMENT).azurecr.io'
+  CONTAINER_REGISTRY: 'microcontainerappprod.azurecr.io'
   DOCKER_FILEPATH: '$(Build.SourcesDirectory)/Dockerfile'
   TAG: 'latest'
-  DOCKER_REGISTRY_SERVICE_CONNECTION: 'microapp$(DEPLOY_ENVIRONMENT)acr'
-  FUNCTIONAPPNAME: 'spawner$(DEPLOY_ENVIRONMENT)'
+  DOCKER_REGISTRY_SERVICE_CONNECTION: 'microappdockerprod'
+  FUNCTIONAPPNAME: 'spawnerprod'
   WORKING_DIRECTORY: '$(System.DefaultWorkingDirectory)/spawner'
 
 

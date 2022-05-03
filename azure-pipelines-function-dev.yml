@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-  FUNCTIONAPPNAME: 'spawner$(DEPLOY_ENVIRONMENT)'
+  FUNCTIONAPPNAME: 'spawnertest'
   WORKING_DIRECTORY: '$(System.DefaultWorkingDirectory)/spawner'
 
 pool:
