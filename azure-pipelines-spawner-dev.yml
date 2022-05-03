@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-  DOCKER_REGISTRY_SERVICE_CONNECTION: 'microappworkertest'
+  DOCKER_REGISTRY_SERVICE_CONNECTION: 'microappdockertest'
   IMAGE_REPOSITORY: 'worker'
   CONTAINER_REGISTRY: 'microcontainerapp$(DEPLOY_ENVIRONMENT).azurecr.io'
   DOCKER_FILEPATH: '$(Build.SourcesDirectory)/Dockerfile'
