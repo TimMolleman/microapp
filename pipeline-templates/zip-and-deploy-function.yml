@@ -1,6 +1,6 @@
 # Template for zipping and deploying Python 3.8 spawner function to Azure
 stages:
-- stage: Build
+- stage: BuildAzureFunction
   displayName: Build function
 
   jobs:

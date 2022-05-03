@@ -16,7 +16,7 @@ pool:
 
 stages:
 - template: pipeline-templates/zip-and-deploy-function.yml
-- stage: Build
+- stage: BuildSpawnerImage
   displayName: Build and push spawner image
   jobs:
     - template: pipeline-templates/build-and-push-image.yml
