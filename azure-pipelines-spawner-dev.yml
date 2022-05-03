@@ -3,7 +3,7 @@ trigger:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'microapp_test_acr'
+  dockerRegistryServiceConnection: 'microapptestacr'
   imageRepository: 'worker'
   containerRegistry: 'microcontainerapptest.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
@@ -29,7 +29,7 @@ stages:
             inputs:
               command: buildAndPush
               repository: $(imageRepository)
-              dockerfile: $(Build.SourcesDirectory)/Dockerfile
+              dockerfile: $(dockerfilePath)
               containerRegistry: $(dockerRegistryServiceConnection)
               tags: |
                 $(tag)
