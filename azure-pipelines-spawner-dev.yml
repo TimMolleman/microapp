@@ -3,7 +3,7 @@ trigger:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '92dde932-fe12-4cba-ba4a-ec6b7577dbc4'
+  dockerRegistryServiceConnection: 'some_id'
   imageRepository: 'worker'
   containerRegistry: 'microcontainerapptest.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
@@ -23,6 +23,7 @@ stages:
       runOnce:
         deploy:
           steps:
+          - script: ls $(Build.SourcesDirectory)
           - task: Docker@2
             displayName: Build and push an image to container registry
             inputs:
