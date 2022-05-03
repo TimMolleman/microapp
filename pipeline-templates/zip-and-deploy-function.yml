@@ -40,7 +40,7 @@ stages:
 
 - stage: Deploy
   displayName: Deploy function stage
-  dependsOn: Build
+  dependsOn: BuildAzureFunction
   condition: succeeded()
 
   jobs:
